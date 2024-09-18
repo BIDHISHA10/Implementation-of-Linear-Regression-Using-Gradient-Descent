@@ -8,23 +8,83 @@ To write a program to predict the profit of a city using the linear regression m
 2. Anaconda – Python 3.7 Installation / Jupyter notebook
 
 ## Algorithm
-1. 
-2. 
-3. 
-4. 
+Step 1. Start
+
+Step 2. Import numpy as np
+
+Step 3. Plot the points
+
+Step 4. IntiLiaze thhe program
+
+Step 5.End
 
 ## Program:
 ```
 /*
 Program to implement the linear regression using gradient descent.
-Developed by: 
-RegisterNumber:  
+Developed by: GOGINENI BIDHISHA
+RegisterNumber:  212223040048
 */
 ```
+```
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
 
+def linear_regression(X1,y,learning_rate = 0.1, num_iters = 1000):
+    X = np.c_[np.ones(len(X1)),X1]
+    
+    theta = np.zeros(X.shape[1]).reshape(-1,1)
+    
+    for _ in range(num_iters):
+        
+        #calculate predictions
+        predictions = (X).dot(theta).reshape(-1,1)
+        
+        #calculate errors
+        errors=(predictions - y ).reshape(-1,1)
+        
+        #update theta using gradiant descent
+        theta -= learning_rate*(1/len(X1))*X.T.dot(errors)
+    return theta
+                                        
+data=pd.read_csv("C:/classes/ML/50_Startups.csv")
+data.head()
+
+#assuming the lost column is your target variable 'y' 
+
+X = (data.iloc[1:,:-2].values)
+X1=X.astype(float)
+
+scaler = StandardScaler()
+y=(data.iloc[1:,-1].values).reshape(-1,1)
+X1_Scaled = scaler.fit_transform(X1)
+Y1_Scaled = scaler.fit_transform(y)
+print(X)
+print(X1_Scaled)
+
+#learn modwl paramerers
+
+theta=linear_regression(X1_Scaled,Y1_Scaled)
+
+#predict target value for a new data
+new_data=np.array([165349.2,136897.8,471784.1]).reshape(-1,1)
+new_Scaled=scaler.fit_transform(new_data)
+prediction=np.dot(np.append(1,new_Scaled),theta)
+prediction=prediction.reshape(-1,1)
+pre=scaler.inverse_transform(prediction)
+print(prediction)
+print(f"Predicted value: {pre}")
+```
 ## Output:
 ![linear regression using gradient descent](sam.png)
-
-
+## DATA.HEAD()
+![image](https://github.com/user-attachments/assets/8d15f9fe-67db-48fb-bd17-5ddd05da1ad5)
+## X VALUE
+![image](https://github.com/user-attachments/assets/42dcf197-b378-4949-94eb-48b6434bdaca)
+## X1_SCALED VALUE
+![image](https://github.com/user-attachments/assets/a0b709da-64c9-49b4-be27-32a13380cfb1)
+## PREDICTED VALUES:
+![image](https://github.com/user-attachments/assets/a9344f16-3254-4cbf-b8da-f6fd185832a9)
 ## Result:
 Thus the program to implement the linear regression using gradient descent is written and verified using python programming.
